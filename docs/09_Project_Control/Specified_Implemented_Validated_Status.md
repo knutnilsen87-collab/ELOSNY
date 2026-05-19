@@ -12,5 +12,5 @@
 
 | Artifact | Specified | Implemented | Validated | Notes |
 |---|---:|---:|---:|---|
-| `03_Design/UI_UX_Product_Spec.md` | Yes | No | No | Canonical Evida design specification. |
-| `03_Design/03_Evida_MVP_Figma_Flow.svg` | Yes | No | No | Visual MVP/Figma flow reference. |
+| `docs/03_Design/UI_UX_Product_Spec.md` | Yes | No | No | Canonical Evida design specification. |
+| `docs/03_Design/03_Evida_MVP_Figma_Flow.svg` | Yes | No | No | Visual MVP/Figma flow reference. |

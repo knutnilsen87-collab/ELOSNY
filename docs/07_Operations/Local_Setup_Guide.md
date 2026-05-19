@@ -6,7 +6,7 @@
 - Git.
 
 ## Start steps
-1. Open `10_Starter_Kit/repo`.
+1. Open the repository root.
 2. Run `npm install`.
 3. Run `npm test`.
 4. Run `npm start`.

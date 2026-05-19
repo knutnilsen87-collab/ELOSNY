@@ -22,7 +22,7 @@ Each subject should have one primary source of truth.
 | Technical architecture | {{DOC_NAME}} | {{OWNER}} | {{DATE}} |
 | Domain model | {{DOC_NAME}} | {{OWNER}} | {{DATE}} |
 | API contract | {{DOC_NAME}} | {{OWNER}} | {{DATE}} |
-| Design / UI-UX | `03_Design/UI_UX_Product_Spec.md` + `03_Design/03_Evida_MVP_Figma_Flow.svg` | {{OWNER}} | {{DATE}} |
+| Design / UI-UX | `docs/03_Design/UI_UX_Product_Spec.md` + `docs/03_Design/03_Evida_MVP_Figma_Flow.svg` | {{OWNER}} | {{DATE}} |
 | QA gates | {{DOC_NAME}} | {{OWNER}} | {{DATE}} |
 | Open decisions | {{DOC_NAME}} | {{OWNER}} | {{DATE}} |
-| Operational status, verification, next action | `09_Project_Control/Status_Bundle_Contract.md` + latest `status_bundle` | {{OWNER}} | {{DATE}} |
+| Operational status, verification, next action | `docs/09_Project_Control/Status_Bundle_Contract.md` + latest `status_bundle` | {{OWNER}} | {{DATE}} |

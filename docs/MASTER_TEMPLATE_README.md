@@ -21,8 +21,8 @@ This package has two layers:
 
 ## Recommended usage order
 
-1. Fill `00_START_HERE/Project_Intake_and_Scoring.md`
-2. Fill `00_START_HERE/Project_Profile_Card.md`
+1. Fill `docs/00_START_HERE/Project_Intake_and_Scoring.md`
+2. Fill `docs/00_START_HERE/Project_Profile_Card.md`
 3. Fill strategy and product docs
 4. Fill technical and delivery docs
 5. Activate relevant optional modules
@@ -31,18 +31,18 @@ This package has two layers:
 
 ## Design source of truth for Evida
 
-For Evida-specific UI/UX work, the canonical design specification is `03_Design/UI_UX_Product_Spec.md`.
+For Evida-specific UI/UX work, the canonical design specification is `docs/03_Design/UI_UX_Product_Spec.md`.
 
-The visual MVP/Figma flow artifact is `03_Design/03_Evida_MVP_Figma_Flow.svg`.
+The visual MVP/Figma flow artifact is `docs/03_Design/03_Evida_MVP_Figma_Flow.svg`.
 
-The older design files in `03_Design/` are retained as navigation pointers only. Do not treat them as competing sources of truth.
+The older design files in `docs/03_Design/` are retained as navigation pointers only. Do not treat them as competing sources of truth.
 
 ## Mandatory operating truth: status_bundle
 
 Every meaningful build, handoff, agent run, or implementation task must maintain a current `status_bundle`.
 
-The canonical contract lives in `09_Project_Control/Status_Bundle_Contract.md`.
-The starter JSON template lives in `10_Starter_Kit/repo/docs/status_bundle.template.json`.
+The canonical contract lives in `docs/09_Project_Control/Status_Bundle_Contract.md`.
+The starter JSON template lives in `docs/status/status_bundle.template.json`.
 
 Rules:
 - no execution without a bounded plan;

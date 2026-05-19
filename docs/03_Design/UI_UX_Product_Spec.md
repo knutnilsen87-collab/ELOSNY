@@ -1,7 +1,7 @@
 # 03 Design / UI-UX Product Spec
 
 **Produkt:** Evida  
-**Dokument:** `03_Design/UI_UX_Product_Spec.md`  
+**Dokument:** `docs/03_Design/UI_UX_Product_Spec.md`  
 **Versjon:** v0.1  
 **Status:** MVP-ready design specification  
 **Vertikal MVP:** Matter Command Center → Document Workspace → Fact/Evidence Matrix → Draft → Verification → Review → Export  

@@ -4,7 +4,7 @@
 
 This package is currently a strong pre-build specification package for **Evida**, not yet an implementation repository.
 
-The clearest source of truth is `03_Design/UI_UX_Product_Spec.md`, which defines the MVP as a desktop-first legal workflow:
+The clearest source of truth is `docs/03_Design/UI_UX_Product_Spec.md`, which defines the MVP as a desktop-first legal workflow:
 
 ```text
 Matter Command Center
@@ -24,7 +24,7 @@ The main gaps before build are:
 - technical architecture, API spec, data model and SQL schema are not yet defined
 - backlog, dependency map, estimates and milestone gates are skeletal
 - security/privacy requirements exist only at baseline level
-- starter repo exists only as a placeholder under `10_Starter_Kit/repo`
+- starter repo exists only as a placeholder under `repo root`
 - no real codebase, package structure, tests, CI or local run path exists yet
 
 ## Roadmap principle
@@ -48,21 +48,21 @@ Everything else should support that path.
 
 ### Work
 
-- Fill `00_START_HERE/Project_Profile_Card.md`.
-- Fill `01_Strategy/Executive_Summary.md`.
-- Fill `02_Product/PRD_Product_Requirements_Document.md`.
-- Convert the MVP flow from `03_Design/UI_UX_Product_Spec.md` into product requirements.
+- Fill `docs/00_START_HERE/Project_Profile_Card.md`.
+- Fill `docs/01_Strategy/Executive_Summary.md`.
+- Fill `docs/02_Product/PRD_Product_Requirements_Document.md`.
+- Convert the MVP flow from `docs/03_Design/UI_UX_Product_Spec.md` into product requirements.
 - Decide which optional modules are active for MVP.
 - Mark all non-MVP modules as later-stage or archived.
-- Fill `00_START_HERE/Document_Priority_and_Source_of_Truth.md`.
-- Create the first real `status_bundle` from `10_Starter_Kit/repo/docs/status_bundle.template.json`.
+- Fill `docs/00_START_HERE/Document_Priority_and_Source_of_Truth.md`.
+- Create the first real `status_bundle` from `docs/status/status_bundle.template.json`.
 
 ### Exit criteria
 
 - Evida has a one-paragraph MVP definition.
 - The 7-screen vertical MVP is confirmed as the primary delivery target.
 - Product, design, technical, QA and operational sources of truth are listed.
-- Open questions are captured in `09_Project_Control/Open_Questions_Table.md`.
+- Open questions are captured in `docs/09_Project_Control/Open_Questions_Table.md`.
 - Non-MVP scope is explicitly deferred.
 
 ## Phase 1 - Architecture and domain contract
@@ -74,13 +74,13 @@ Everything else should support that path.
 
 ### Work
 
-- Fill `04_Technical/Technical_Architecture_Spec.md`.
-- Fill `04_Technical/System_Architecture.md`.
-- Fill `04_Technical/Canonical_Domain_Model_v1.md`.
-- Fill `04_Technical/Data_Model.md`.
-- Replace `04_Technical/SQL_Schema_v1.sql` with an initial schema.
-- Expand `04_Technical/API_Specification.md` and `04_Technical/OpenAPI_MVP_Spec.yaml`.
-- Define worker/job behavior in `04_Technical/Worker_State_Machine_Spec.md`.
+- Fill `docs/04_Technical/Technical_Architecture_Spec.md`.
+- Fill `docs/04_Technical/System_Architecture.md`.
+- Fill `docs/04_Technical/Canonical_Domain_Model_v1.md`.
+- Fill `docs/04_Technical/Data_Model.md`.
+- Replace `docs/04_Technical/SQL_Schema_v1.sql` with an initial schema.
+- Expand `docs/04_Technical/API_Specification.md` and `docs/04_Technical/OpenAPI_MVP_Spec.yaml`.
+- Define worker/job behavior in `docs/04_Technical/Worker_State_Machine_Spec.md`.
 - Define provider contracts for OCR, document parsing, AI extraction/generation, storage and export.
 
 ### Recommended MVP architecture
@@ -128,11 +128,11 @@ Everything else should support that path.
 
 ### Work
 
-- Replace `10_Starter_Kit/repo` placeholder with a real codebase.
+- Replace `repo root` placeholder with a real codebase.
 - Initialize version control.
 - Add package/app structure.
 - Add linting, formatting, type checking and test runner.
-- Add local setup documentation in `07_Operations/Local_Setup_Guide.md`.
+- Add local setup documentation in `docs/07_Operations/Local_Setup_Guide.md`.
 - Add a health endpoint or health command.
 - Add CI baseline.
 - Add status bundle location and update workflow.

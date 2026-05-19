@@ -26,10 +26,10 @@
 ## Design package
 
 For Evida UI/UX work, attach or reference:
-- `03_Design/UI_UX_Product_Spec.md`
-- `03_Design/03_Evida_MVP_Figma_Flow.svg`
+- `docs/03_Design/UI_UX_Product_Spec.md`
+- `docs/03_Design/03_Evida_MVP_Figma_Flow.svg`
 
-Do not use the older `03_Design/*` placeholder files as independent design sources. They are pointers to the canonical design spec.
+Do not use the older `docs/03_Design/*` placeholder files as independent design sources. They are pointers to the canonical design spec.
 
 ## Latest status_bundle
 
