@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Evida API
+  version: 0.1.0
+paths:
+  /api/health:
+    get:
+      summary: Runtime health check
+      responses:
+        "200":
+          description: Service is healthy
+  /api/workflow/demo-run:
+    post:
+      summary: Run local end-to-end demo workflow
+      responses:
+        "200":
+          description: Verified review/export workflow result
+  /api/matters:
+    post:
+      summary: Create matter
+      responses:
+        "201":
+          description: Matter created
+  /api/matters/{matterId}:
+    get:
+      summary: Get matter command center data
+      parameters:
+        - name: matterId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Matter data
+        "404":
+          description: Matter not found
+  /api/matters/{matterId}/documents:
+    post:
+      summary: Import document into matter
+      parameters:
+        - name: matterId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Document imported
+  /api/documents/{documentId}/process:
+    post:
+      summary: Process document into facts and evidence
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Document processed
+  /api/facts/{factId}/review:
+    post:
+      summary: Review fact
+      parameters:
+        - name: factId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Fact reviewed
+  /api/matters/{matterId}/drafts:
+    post:
+      summary: Create sourced draft
+      parameters:
+        - name: matterId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Draft created
+  /api/drafts/{draftId}/verify:
+    post:
+      summary: Verify draft
+      parameters:
+        - name: draftId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Verification result
+  /api/drafts/{draftId}/review:
+    post:
+      summary: Review draft
+      parameters:
+        - name: draftId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Review decision
+  /api/drafts/{draftId}/export:
+    post:
+      summary: Export approved draft package
+      parameters:
+        - name: draftId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Export package created
+        "409":
+          description: Export blocked by verification or review gates
+components:
+  schemas:
+    LegalStatusBundle:
+      type: object
+      required:
+        - matterId
+        - status
+        - nextSafeAction
+        - canExport

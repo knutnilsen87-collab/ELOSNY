@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1400" height="2200" viewBox="0 0 1400 2200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #F8FAFC; }
+      .frame { fill: #FFFFFF; stroke: #CBD5E1; stroke-width: 2; rx: 18; }
+      .nav { fill: #07111F; }
+      .right { fill: #F1F5F9; stroke: #E2E8F0; stroke-width: 1; }
+      .title { font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 700; fill: #0F172A; }
+      .label { font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 600; fill: #334155; }
+      .small { font-family: Inter, Arial, sans-serif; font-size: 14px; fill: #64748B; }
+      .white { fill: #FFFFFF; }
+      .pill { fill: #EFF6FF; stroke: #BFDBFE; stroke-width: 1; rx: 16; }
+      .cta { fill: #1D4ED8; rx: 10; }
+      .ctaText { font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #FFFFFF; }
+      .warn { fill: #FEF3C7; stroke: #FBBF24; rx: 12; }
+      .ok { fill: #DCFCE7; stroke: #86EFAC; rx: 12; }
+      .danger { fill: #FEE2E2; stroke: #FCA5A5; rx: 12; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .nodeTitle { font-family: Inter, Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #0F172A; }
+      .nodeSub { font-family: Inter, Arial, sans-serif; font-size: 14px; fill: #475569; }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1400" height="2200"/>
+  <text x="80" y="70" class="title">Evida — Vertical MVP Figma Flow</text>
+  <text x="80" y="100" class="small">Matter Command Center → Document Workspace → Fact/Evidence Matrix → Draft → Verification → Review → Export</text>
+
+  <!-- Flow nodes -->
+  <g transform="translate(80,150)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">01</text>
+    <text x="230" y="42" class="nodeTitle">Matter Command Center</text>
+    <text x="230" y="72" class="nodeSub">60-second case overview: status, risk, missing items, next safe action.</text>
+    <rect class="warn" x="230" y="100" width="180" height="34"/><text x="246" y="122" class="small">Status: Delvis klar</text>
+    <rect class="warn" x="430" y="100" width="150" height="34"/><text x="446" y="122" class="small">Risk: Medium</text>
+    <rect class="pill" x="600" y="100" width="220" height="34"/><text x="616" y="122" class="small">Next deadline: 12 days</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="960" y="170" class="ctaText">Review missing documents</text>
+  </g>
+  <path class="arrow" d="M700 360 L700 430"/>
+
+  <g transform="translate(80,430)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">02</text>
+    <text x="230" y="42" class="nodeTitle">Document Workspace</text>
+    <text x="230" y="72" class="nodeSub">Import, OCR, classify, extract, review. Every extraction has source + confidence.</text>
+    <rect class="pill" x="230" y="100" width="165" height="34"/><text x="246" y="122" class="small">500 docs ready</text>
+    <rect class="warn" x="415" y="100" width="210" height="34"/><text x="431" y="122" class="small">14 extractions need review</text>
+    <rect class="danger" x="645" y="100" width="160" height="34"/><text x="661" y="122" class="small">2 failed imports</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="956" y="170" class="ctaText">Continue to Fact/Evidence</text>
+  </g>
+  <path class="arrow" d="M700 640 L700 710"/>
+
+  <g transform="translate(80,710)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">03</text>
+    <text x="230" y="42" class="nodeTitle">Fact / Evidence Matrix</text>
+    <text x="230" y="72" class="nodeSub">Reviewable facts and evidence, source refs, contradictions, legal issue mapping.</text>
+    <rect class="ok" x="230" y="100" width="170" height="34"/><text x="246" y="122" class="small">32 facts reviewed</text>
+    <rect class="warn" x="420" y="100" width="165" height="34"/><text x="436" y="122" class="small">5 unreviewed</text>
+    <rect class="danger" x="605" y="100" width="170" height="34"/><text x="621" y="122" class="small">2 contradictions</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="966" y="170" class="ctaText">Generate sourced draft</text>
+  </g>
+  <path class="arrow" d="M700 920 L700 990"/>
+
+  <g transform="translate(80,990)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">04</text>
+    <text x="230" y="42" class="nodeTitle">Draft Workspace</text>
+    <text x="230" y="72" class="nodeSub">Source-grounded editor with paragraph source rail and unsupported claim markers.</text>
+    <rect class="ok" x="230" y="100" width="195" height="34"/><text x="246" y="122" class="small">Source coverage 94%</text>
+    <rect class="warn" x="445" y="100" width="190" height="34"/><text x="461" y="122" class="small">3 claims need review</text>
+    <rect class="pill" x="655" y="100" width="150" height="34"/><text x="671" y="122" class="small">Autosaved</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="987" y="170" class="ctaText">Run verification</text>
+  </g>
+  <path class="arrow" d="M700 1200 L700 1270"/>
+
+  <g transform="translate(80,1270)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">05</text>
+    <text x="230" y="42" class="nodeTitle">Verification Report</text>
+    <text x="230" y="72" class="nodeSub">Checks sources, facts, dates, parties, amounts, contradictions, review gates.</text>
+    <rect class="warn" x="230" y="100" width="185" height="34"/><text x="246" y="122" class="small">Needs review</text>
+    <rect class="ok" x="435" y="100" width="155" height="34"/><text x="451" y="122" class="small">18 checks pass</text>
+    <rect class="danger" x="610" y="100" width="160" height="34"/><text x="626" y="122" class="small">1 blocker</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="1004" y="170" class="ctaText">Send to review</text>
+  </g>
+  <path class="arrow" d="M700 1480 L700 1550"/>
+
+  <g transform="translate(80,1550)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">06</text>
+    <text x="230" y="42" class="nodeTitle">Review &amp; Approval</text>
+    <text x="230" y="72" class="nodeSub">Human approval bound to draft version, verification artifact and Legal Status Bundle.</text>
+    <rect class="ok" x="230" y="100" width="175" height="34"/><text x="246" y="122" class="small">Sources checked</text>
+    <rect class="ok" x="425" y="100" width="185" height="34"/><text x="441" y="122" class="small">Version locked</text>
+    <rect class="warn" x="630" y="100" width="170" height="34"/><text x="646" y="122" class="small">Notes attached</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="986" y="170" class="ctaText">Approve for export</text>
+  </g>
+  <path class="arrow" d="M700 1760 L700 1830"/>
+
+  <g transform="translate(80,1830)">
+    <rect class="frame" x="0" y="0" width="1220" height="210" rx="18"/>
+    <rect class="nav" x="0" y="0" width="190" height="210" rx="18"/>
+    <text x="28" y="42" class="white" font-family="Inter, Arial" font-size="18" font-weight="700">07</text>
+    <text x="230" y="42" class="nodeTitle">Export Package</text>
+    <text x="230" y="72" class="nodeSub">Export Word/PDF plus source appendix, verification report, review decision and audit summary.</text>
+    <rect class="ok" x="230" y="100" width="180" height="34"/><text x="246" y="122" class="small">Ready to export</text>
+    <rect class="pill" x="430" y="100" width="170" height="34"/><text x="446" y="122" class="small">Word + PDF</text>
+    <rect class="pill" x="620" y="100" width="190" height="34"/><text x="636" y="122" class="small">Audit package</text>
+    <rect class="cta" x="930" y="142" width="230" height="44"/><text x="1006" y="170" class="ctaText">Export package</text>
+  </g>
+
+  <text x="80" y="2120" class="small">Import this SVG into Figma as a flow map. Then replace each node with a full 1440×960 frame using the spec in 03_Design_UI_UX_Product_Spec.md.</text>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "name": "evida",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Evida legal matter workspace vertical slice",
+  "scripts": {
+    "start": "node apps/server/server.js",
+    "test": "node --test tests/*.test.js",
+    "smoke": "node scripts/smoke.js",
+    "check": "npm test && npm run smoke"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

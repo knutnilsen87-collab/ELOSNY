@@ -1,0 +1,129 @@
+{
+  "bundle_id": "SB-{{PROJECT_CODE}}-001",
+  "bundle_version": 1,
+  "domain": "project",
+  "task_id": "TASK-{{DATE}}-001",
+  "run_id": "RUN-{{DATE}}-001",
+  "workflow": "{{WORKFLOW_NAME}}_v1",
+  "created_at": "{{ISO_8601_CREATED_AT}}",
+  "updated_at": "{{ISO_8601_UPDATED_AT}}",
+  "facts": [],
+  "assumptions": [],
+  "ambiguity_flags": [],
+  "current_state": {
+    "lifecycle_state": "created",
+    "status": "not_started",
+    "blocked": false,
+    "partial": false,
+    "terminal_state": false,
+    "severity": "medium"
+  },
+  "summary": {
+    "short_summary": "",
+    "technical_summary": "",
+    "user_visible_summary": ""
+  },
+  "progress_tracking": {
+    "phase": "",
+    "percent": 0,
+    "blocker": null
+  },
+  "scope_lock": {
+    "in_scope": [],
+    "out_of_scope": [],
+    "locked_target_surfaces": [],
+    "change_budget": "minimal"
+  },
+  "locked_decisions": [],
+  "causal_bridge": {
+    "symptom": "",
+    "current_hypothesis": "",
+    "root_cause_candidate": "",
+    "alternate_hypotheses": [],
+    "causal_confidence": 0
+  },
+  "evidence_layer": {
+    "signals": [],
+    "artifact_refs": [],
+    "changed_surfaces": [],
+    "evidence_quality": "low",
+    "evidence_gaps": []
+  },
+  "verification_state": {
+    "status": "not_started",
+    "must_check": [],
+    "maybe_check": [],
+    "defer_if_reversible": [],
+    "coverage_status": "none",
+    "residual_risk": "medium",
+    "false_green_risk": "medium"
+  },
+  "verification_layer": {
+    "validation_status": null,
+    "invariant_status": "not_checked",
+    "broken_invariants": [],
+    "untested_invariants": [],
+    "coverage_status": "none",
+    "residual_risk": "medium",
+    "false_green_risk": "medium"
+  },
+  "trust_layer": {
+    "confidence_overall": 0,
+    "confidence_breakdown": {
+      "evidence_confidence": 0,
+      "verification_confidence": 0,
+      "coverage_confidence": 0,
+      "rollback_readiness_confidence": 0
+    },
+    "risk_score": 0,
+    "risk_class": "medium",
+    "approval_recommendation": "review_recommended"
+  },
+  "action_layer": {
+    "chosen_strategy": "",
+    "chosen_action": "",
+    "recommended_next_action": "",
+    "fallback_action": "",
+    "stop_conditions": [],
+    "rollback_ready": false
+  },
+  "rollback_path": {
+    "available": false,
+    "checkpoint_ref": null,
+    "rollback_instruction": ""
+  },
+  "execution_contract": {
+    "next_action_type": "review",
+    "next_action_target": "",
+    "next_action_instruction": "",
+    "success_condition_for_next_action": "",
+    "verification_for_next_action": ""
+  },
+  "closure_readiness": {
+    "can_claim_success": false,
+    "blocked_by": [],
+    "closure_candidate": "none",
+    "remaining_unknowns": []
+  },
+  "repo_health": {
+    "status": "not_applicable",
+    "structure_fit": "",
+    "ownership_fit": "",
+    "duplication_risk": "low",
+    "boundary_violation_risk": "low",
+    "temporary_mess_introduced": false,
+    "cleanup_performed": [],
+    "follow_up_required": []
+  },
+  "repro_layer": {
+    "repro_status": "none",
+    "replay_manifest_ref": null,
+    "replay_ready": false
+  },
+  "closure_layer": {
+    "closure_decision_ref": null,
+    "approved_by_review": false,
+    "deny_reasons": [],
+    "failure_to_asset_required": false
+  }
+}

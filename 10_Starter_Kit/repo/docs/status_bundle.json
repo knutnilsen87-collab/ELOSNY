@@ -1,0 +1,187 @@
+{
+  "bundle_id": "SB-ELOS-001",
+  "bundle_version": 1,
+  "domain": "engineering",
+  "task_id": "TASK-2026-05-19-001",
+  "run_id": "RUN-2026-05-19-001",
+  "workflow": "evida_phase_1_12_foundation_v1",
+  "created_at": "2026-05-19T00:00:00.000Z",
+  "updated_at": "2026-05-19T00:00:00.000Z",
+  "facts": [
+    "Evida now has filled scope, PRD, architecture, domain, data and API documents.",
+    "The starter repo contains a Node-based app/API/domain vertical slice.",
+    "The implemented workflow covers matter, documents, facts, draft, verification, review and export."
+  ],
+  "assumptions": [
+    "The first production-grade foundation can use an in-memory runtime while persistence contracts are stabilized.",
+    "External OCR, AI, auth and artifact providers remain behind future provider adapters."
+  ],
+  "ambiguity_flags": [
+    "Owner, CTO/technical lead and product lead are still TBD.",
+    "Final production hosting, auth provider and database provider are not locked."
+  ],
+  "current_state": {
+    "lifecycle_state": "succeeded",
+    "status": "verified",
+    "blocked": false,
+    "partial": false,
+    "terminal_state": true,
+    "severity": "low"
+  },
+  "summary": {
+    "short_summary": "Phase 1-12 foundation is being implemented as a tested vertical slice.",
+    "technical_summary": "Node app with REST API, domain services, UI shell, audit events and gate tests.",
+    "user_visible_summary": "Evida can demonstrate a verified matter-to-export workflow locally."
+  },
+  "progress_tracking": {
+    "phase": "phase_1_12_foundation",
+    "percent": 100,
+    "blocker": null
+  },
+  "scope_lock": {
+    "in_scope": [
+      "documentation foundation",
+      "repo baseline",
+      "vertical workflow",
+      "domain gates",
+      "local tests"
+    ],
+    "out_of_scope": [
+      "real external providers",
+      "production database deployment",
+      "enterprise integrations"
+    ],
+    "locked_target_surfaces": [
+      "10_Starter_Kit/repo",
+      "00_START_HERE",
+      "01_Strategy",
+      "02_Product",
+      "04_Technical",
+      "07_Operations"
+    ],
+    "change_budget": "focused"
+  },
+  "locked_decisions": [
+    "Use modular monolith as initial architecture.",
+    "Treat source refs, verification, review and audit as first-class domain concepts."
+  ],
+  "causal_bridge": {
+    "symptom": "Folder contained templates but no buildable product code.",
+    "current_hypothesis": "A tested vertical slice is the fastest safe bridge from planning to implementation.",
+    "root_cause_candidate": "Implementation repo had only placeholder folders.",
+    "alternate_hypotheses": [],
+    "causal_confidence": 0.9
+  },
+  "evidence_layer": {
+    "signals": [
+      "placeholder documents replaced",
+      "app/API/domain files added",
+      "tests added",
+      "npm test passed",
+      "npm run smoke passed",
+      "browser verification passed"
+    ],
+    "artifact_refs": [
+      "10_Starter_Kit/repo/package.json",
+      "10_Starter_Kit/repo/packages/domain/index.js",
+      "10_Starter_Kit/repo/tests/workflow.test.js",
+      "10_Starter_Kit/repo/docs/evida-browser-verification.png"
+    ],
+    "changed_surfaces": [
+      "documentation",
+      "starter repo"
+    ],
+    "evidence_quality": "high",
+    "evidence_gaps": []
+  },
+  "verification_state": {
+    "status": "pass",
+    "must_check": [
+      "npm test",
+      "npm run smoke"
+    ],
+    "maybe_check": [
+      "local browser check"
+    ],
+    "defer_if_reversible": [],
+    "coverage_status": "sufficient",
+    "residual_risk": "low",
+    "false_green_risk": "low"
+  },
+  "verification_layer": {
+    "validation_status": "pass",
+    "invariant_status": "pass",
+    "broken_invariants": [],
+    "untested_invariants": [],
+    "coverage_status": "sufficient",
+    "residual_risk": "low",
+    "false_green_risk": "low"
+  },
+  "trust_layer": {
+    "confidence_overall": 0.88,
+    "confidence_breakdown": {
+      "evidence_confidence": 0.9,
+      "verification_confidence": 0.9,
+      "coverage_confidence": 0.85,
+      "rollback_readiness_confidence": 0.8
+    },
+    "risk_score": 15,
+    "risk_class": "low",
+    "approval_recommendation": "review_recommended"
+  },
+  "action_layer": {
+    "chosen_strategy": "Build a tested vertical slice before broad expansion.",
+    "chosen_action": "Implement repo baseline and workflow gates.",
+    "recommended_next_action": "Replace in-memory runtime with database-backed repositories and auth when moving beyond local foundation.",
+    "fallback_action": "Keep local vertical slice as reference implementation if provider/database choices change.",
+    "stop_conditions": [
+      "tests fail",
+      "export gate allows unsafe export"
+    ],
+    "rollback_ready": true
+  },
+  "rollback_path": {
+    "available": true,
+    "checkpoint_ref": null,
+    "rollback_instruction": "Revert files changed in this task or reset before first commit."
+  },
+  "execution_contract": {
+    "next_action_type": "review",
+    "next_action_target": "10_Starter_Kit/repo",
+    "next_action_instruction": "Review implemented foundation and choose production provider/database/auth stack.",
+    "success_condition_for_next_action": "Stakeholders accept foundation and approve next production hardening step.",
+    "verification_for_next_action": "npm test, npm run smoke and browser verification are passing."
+  },
+  "closure_readiness": {
+    "can_claim_success": true,
+    "blocked_by": [],
+    "closure_candidate": "succeeded",
+    "remaining_unknowns": [
+      "production provider choices",
+      "auth/database deployment"
+    ]
+  },
+  "repo_health": {
+    "status": "improved",
+    "structure_fit": "Starter repo now has app, domain, tests and scripts.",
+    "ownership_fit": "Domain gates live in packages/domain; web/server are separate.",
+    "duplication_risk": "low",
+    "boundary_violation_risk": "low",
+    "temporary_mess_introduced": false,
+    "cleanup_performed": [],
+    "follow_up_required": [
+      "replace in-memory store with production persistence"
+    ]
+  },
+  "repro_layer": {
+    "repro_status": "ready",
+    "replay_manifest_ref": "npm run smoke",
+    "replay_ready": true
+  },
+  "closure_layer": {
+    "closure_decision_ref": null,
+    "approved_by_review": false,
+    "deny_reasons": [],
+    "failure_to_asset_required": false
+  }
+}
