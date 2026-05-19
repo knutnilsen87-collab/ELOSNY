@@ -23,6 +23,8 @@ Open `http://localhost:4173`.
 - Desktop-first web shell.
 - Domain runtime for matter, document, fact/evidence, draft, verification, review and export.
 - Fail-closed export gate.
+- Role permission checks for API commands.
+- Approval invalidation when a draft is edited after review.
 - Audit events for material workflow actions.
 - Legal Status Bundle computation.
 - Automated tests for success and blocked states.

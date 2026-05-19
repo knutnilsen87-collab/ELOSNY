@@ -95,6 +95,20 @@ paths:
       responses:
         "200":
           description: Verification result
+  /api/drafts/{draftId}:
+    patch:
+      summary: Edit draft and invalidate approval when required
+      parameters:
+        - name: draftId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Draft updated
+        "403":
+          description: Permission denied
   /api/drafts/{draftId}/review:
     post:
       summary: Review draft

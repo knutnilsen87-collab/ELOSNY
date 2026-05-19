@@ -10,7 +10,9 @@
   "facts": [
     "Evida now has filled scope, PRD, architecture, domain, data and API documents.",
     "The starter repo contains a Node-based app/API/domain vertical slice.",
-    "The implemented workflow covers matter, documents, facts, draft, verification, review and export."
+    "The implemented workflow covers matter, documents, facts, draft, verification, review and export.",
+    "API role checks now block unauthorized commands.",
+    "Draft edits after approval invalidate export readiness."
   ],
   "assumptions": [
     "The first production-grade foundation can use an in-memory runtime while persistence contracts are stabilized.",
@@ -79,11 +81,13 @@
       "tests added",
       "npm test passed",
       "npm run smoke passed",
-      "browser verification passed"
+      "browser verification passed",
+      "API authorization smoke check passed: health=200 denied=403 allowed=201"
     ],
     "artifact_refs": [
       "10_Starter_Kit/repo/package.json",
       "10_Starter_Kit/repo/packages/domain/index.js",
+      "10_Starter_Kit/repo/packages/security/index.js",
       "10_Starter_Kit/repo/tests/workflow.test.js",
       "10_Starter_Kit/repo/docs/evida-browser-verification.png"
     ],

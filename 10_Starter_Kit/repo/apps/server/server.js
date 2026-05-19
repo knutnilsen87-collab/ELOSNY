@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createEvidaRuntime } from "../../packages/domain/index.js";
+import { assertCan, roleFromRequest } from "../../packages/security/index.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const webRoot = join(__dirname, "../web");
@@ -40,6 +41,8 @@ function sendError(response, status, code, message, blockers = [], recoveryActio
 }
 
 async function handleApi(request, response, url) {
+  const role = roleFromRequest(request);
+
   if (request.method === "GET" && url.pathname === "/api/health") {
     return sendJson(response, 200, runtime.health());
   }
@@ -49,11 +52,13 @@ async function handleApi(request, response, url) {
   }
 
   if (request.method === "POST" && url.pathname === "/api/matters") {
+    assertCan(role, "matter:create");
     return sendJson(response, 201, runtime.createMatter(await readJson(request)));
   }
 
   const matterMatch = url.pathname.match(/^\/api\/matters\/([^/]+)$/);
   if (request.method === "GET" && matterMatch) {
+    assertCan(role, "matter:view");
     const matter = runtime.getMatter(matterMatch[1]);
     if (!matter) return sendError(response, 404, "matter_not_found", "Matter was not found.");
     return sendJson(response, 200, matter);
@@ -61,36 +66,49 @@ async function handleApi(request, response, url) {
 
   const documentImportMatch = url.pathname.match(/^\/api\/matters\/([^/]+)\/documents$/);
   if (request.method === "POST" && documentImportMatch) {
+    assertCan(role, "document:import");
     return sendJson(response, 201, runtime.importDocument(documentImportMatch[1], await readJson(request)));
   }
 
   const processMatch = url.pathname.match(/^\/api\/documents\/([^/]+)\/process$/);
   if (request.method === "POST" && processMatch) {
+    assertCan(role, "document:process");
     return sendJson(response, 200, runtime.processDocument(processMatch[1]));
   }
 
   const factReviewMatch = url.pathname.match(/^\/api\/facts\/([^/]+)\/review$/);
   if (request.method === "POST" && factReviewMatch) {
+    assertCan(role, "fact:review");
     return sendJson(response, 200, runtime.reviewFact(factReviewMatch[1], await readJson(request)));
   }
 
   const draftCreateMatch = url.pathname.match(/^\/api\/matters\/([^/]+)\/drafts$/);
   if (request.method === "POST" && draftCreateMatch) {
+    assertCan(role, "draft:create");
     return sendJson(response, 201, runtime.createDraft(draftCreateMatch[1], await readJson(request)));
+  }
+
+  const draftEditMatch = url.pathname.match(/^\/api\/drafts\/([^/]+)$/);
+  if (request.method === "PATCH" && draftEditMatch) {
+    assertCan(role, "draft:edit");
+    return sendJson(response, 200, runtime.updateDraft(draftEditMatch[1], await readJson(request)));
   }
 
   const draftVerifyMatch = url.pathname.match(/^\/api\/drafts\/([^/]+)\/verify$/);
   if (request.method === "POST" && draftVerifyMatch) {
+    assertCan(role, "draft:verify");
     return sendJson(response, 200, runtime.verifyDraft(draftVerifyMatch[1]));
   }
 
   const draftReviewMatch = url.pathname.match(/^\/api\/drafts\/([^/]+)\/review$/);
   if (request.method === "POST" && draftReviewMatch) {
+    assertCan(role, "draft:review");
     return sendJson(response, 200, runtime.reviewDraft(draftReviewMatch[1], await readJson(request)));
   }
 
   const draftExportMatch = url.pathname.match(/^\/api\/drafts\/([^/]+)\/export$/);
   if (request.method === "POST" && draftExportMatch) {
+    assertCan(role, "draft:export");
     try {
       return sendJson(response, 201, runtime.exportDraft(draftExportMatch[1], await readJson(request)));
     } catch (error) {
@@ -118,6 +136,10 @@ const server = createServer(async (request, response) => {
     }
     await handleStatic(response, url);
   } catch (error) {
+    if (error.status === 403) {
+      sendError(response, 403, "permission_denied", error.message, [], "Use an authorized Evida role for this command.");
+      return;
+    }
     sendError(response, 500, "internal_error", error.message);
   }
 });

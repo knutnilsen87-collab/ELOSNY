@@ -20,7 +20,7 @@
 
 ## Production hardening requirements
 - Add authentication provider before external beta.
-- Add authorization middleware for all non-health API routes.
+- Keep authorization middleware on all non-health API routes and replace the local role header with authenticated claims.
 - Add database-backed audit trail before production use.
 - Add encryption at rest through managed database/blob storage.
 - Add structured logs without leaking document content.

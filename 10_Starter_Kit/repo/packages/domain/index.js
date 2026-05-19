@@ -280,6 +280,25 @@ export function createEvidaRuntime() {
       return { draft, legalStatusBundle: bumpStatusBundle(state, matterId) };
     },
 
+    updateDraft(draftId, input = {}) {
+      const draft = state.drafts.get(draftId);
+      if (!draft) throw new Error(`Draft ${draftId} not found.`);
+      const hadApproval = [...state.reviewDecisions.values()].some(
+        (item) => item.draftId === draftId && ["approved", "approved_with_notes"].includes(item.decision)
+      );
+      draft.version += 1;
+      draft.content = input.content ?? draft.content;
+      draft.unsupportedClaims = input.unsupportedClaims ?? draft.unsupportedClaims;
+      draft.changedAfterReview = hadApproval || draft.changedAfterReview;
+      draft.updatedAt = now();
+      audit(state, "draft.updated", draft.matterId, {
+        draftId,
+        version: draft.version,
+        changedAfterReview: draft.changedAfterReview
+      });
+      return { draft, legalStatusBundle: bumpStatusBundle(state, draft.matterId) };
+    },
+
     verifyDraft(draftId) {
       const draft = state.drafts.get(draftId);
       if (!draft) throw new Error(`Draft ${draftId} not found.`);
@@ -289,6 +308,7 @@ export function createEvidaRuntime() {
       if (draft.paragraphSourceRefs.length === 0) failures.push("Draft has no paragraph source references.");
       if (draft.unsupportedClaims.length > 0) failures.push("Draft contains unsupported claims.");
       if (facts.some((fact) => fact.status === "contradicted")) failures.push("Contradicted facts remain unresolved.");
+      if (draft.changedAfterReview) failures.push("Draft changed after review and requires new approval.");
       if (facts.some((fact) => fact.status === "unreviewed")) warnings.push("Some facts remain unreviewed.");
       const result = {
         id: id("VER", state),

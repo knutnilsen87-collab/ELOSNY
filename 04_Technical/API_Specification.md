@@ -14,6 +14,7 @@ REST for synchronous commands/queries, plus event/job records for asynchronous w
 | POST | /api/documents/:documentId/process | Run document processing job | user |
 | POST | /api/facts/:factId/review | Approve, reject or edit a fact | reviewer |
 | POST | /api/matters/:matterId/drafts | Create sourced draft | user |
+| PATCH | /api/drafts/:draftId | Edit draft and invalidate approval when needed | user |
 | POST | /api/drafts/:draftId/verify | Run verification | user |
 | POST | /api/drafts/:draftId/review | Submit human review decision | reviewer |
 | POST | /api/drafts/:draftId/export | Create export package if gates pass | reviewer |
@@ -34,6 +35,7 @@ REST for synchronous commands/queries, plus event/job records for asynchronous w
 
 ## Contract rules
 - Commands return the updated Legal Status Bundle when matter state changes.
+- Non-health commands require an authorized role.
 - Gate failures return machine-readable blockers.
 - Export commands fail closed when verification or review is incomplete.
 - All material commands write audit events.
