@@ -1,22 +1,22 @@
 # Evida Monorepo
 
-This repository contains the Evida legal matter workspace and all project documentation.
+Dette repoet inneholder Evida, en juridisk saksarbeidsflate, samt all prosjektdokumentasjon.
 
-## Structure
+## Struktur
 
 ```text
 apps/
-  server/       Node HTTP API and static app server
-  web/          Desktop-first web shell
+  server/       Node HTTP-API og statisk appserver
+  web/          Desktop-first webflate
 packages/
-  domain/       Matter-to-export workflow rules and gates
-  security/     Role permission checks
-scripts/        Local smoke and utility scripts
-tests/          Automated workflow tests
-docs/           Product, design, technical, QA, operations and status docs
+  domain/       Regler og gates for flyten fra sak til eksport
+  security/     Rolletilganger
+scripts/        Lokale smoke- og hjelpeskript
+tests/          Automatiserte flyttester
+docs/           Produkt, design, teknisk, QA, drift og status
 ```
 
-## Run locally
+## Kjør lokalt
 
 ```powershell
 npm install
@@ -25,48 +25,48 @@ npm run smoke
 npm start
 ```
 
-Open `http://localhost:4173`.
+Åpne `http://localhost:4173`.
 
-Or start everything with:
+Eller start alt med:
 
 ```powershell
 .\start-evida.ps1
 ```
 
-## Implemented vertical slice
+## Implementert vertikal flyt
 
 ```text
-Matter -> Document -> Fact/Evidence -> Draft -> Verification -> Review -> Export
+Sak -> Dokument -> Fakta/bevis -> Utkast -> Verifisering -> Review -> Eksport
 ```
 
-Implemented:
+Implementert:
 
-- Node HTTP server with REST endpoints.
-- Desktop-first web shell.
-- Domain runtime for matter, document, fact/evidence, draft, verification, review and export.
-- Fail-closed export gate.
-- Role permission checks for API commands.
-- Approval invalidation when a draft is edited after review.
-- Audit events for material workflow actions.
-- Legal Status Bundle computation.
-- Automated tests for success and blocked states.
+- Node HTTP-server med REST-endepunkter.
+- Desktop-first webflate.
+- Domeneruntime for sak, dokument, fakta/bevis, utkast, verifisering, review og eksport.
+- Eksportgate som feiler lukket.
+- Rolletilganger for API-kommandoer.
+- Godkjenning blir ugyldig hvis utkastet endres etter review.
+- Audit-hendelser for viktige handlinger i arbeidsflyten.
+- Beregning av juridisk statuspakke.
+- Automatiserte tester for suksessflyt og blokkerte tilstander.
 
-## Documentation
+## Dokumentasjon
 
-All documentation now lives under `docs/`.
+All dokumentasjon ligger under `docs/`.
 
-Important starting points:
+Viktige startpunkter:
 
 - `docs/00_START_HERE/README_Start_Here.md`
 - `docs/03_Design/UI_UX_Product_Spec.md`
 - `docs/05_Delivery/Roadmap_and_Milestones.md`
 - `docs/status/status_bundle.json`
 
-## Current production gaps
+## Gjenstående produksjonsløft
 
-- Replace in-memory runtime with database-backed repositories.
-- Replace local role header with authenticated claims.
-- Add real OCR/document parsing provider.
-- Add real AI extraction/drafting provider behind contracts.
-- Add artifact storage for documents and exports.
-- Add structured production logging and telemetry.
+- Bytt in-memory runtime med database-backed repositories.
+- Bytt lokal rolle-header med autentiserte claims.
+- Legg til ekte OCR-/dokumentparser-provider.
+- Legg til ekte AI-provider for uttrekk og drafting bak provider-kontrakter.
+- Legg til artefaktlagring for dokumenter og eksportpakker.
+- Legg til strukturert produksjonslogging og telemetry.

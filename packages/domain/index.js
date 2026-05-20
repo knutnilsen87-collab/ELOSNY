@@ -51,21 +51,21 @@ function computeLegalStatusBundle(state, matterId) {
     : null;
 
   const missingItems = [];
-  if (documents.length === 0) missingItems.push("Import at least one source document.");
-  if (!facts.some((fact) => fact.status === "reviewed")) missingItems.push("Review at least one source-bound fact.");
-  if (!latestDraft) missingItems.push("Create a sourced draft.");
-  if (!latestVerification || latestVerification.status !== "verified") missingItems.push("Run verification and resolve blockers.");
-  if (!latestReview || !["approved", "approved_with_notes"].includes(latestReview.decision)) missingItems.push("Complete human review approval.");
+  if (documents.length === 0) missingItems.push("Importer minst ett kildedokument.");
+  if (!facts.some((fact) => fact.status === "reviewed")) missingItems.push("Review minst ett kildebundet faktum.");
+  if (!latestDraft) missingItems.push("Lag et kildebasert utkast.");
+  if (!latestVerification || latestVerification.status !== "verified") missingItems.push("Kjør verifisering og løs blokkeringer.");
+  if (!latestReview || !["approved", "approved_with_notes"].includes(latestReview.decision)) missingItems.push("Fullfør menneskelig review og godkjenning.");
 
   const risks = [];
   if (facts.some((fact) => fact.status === "unsupported")) {
-    risks.push({ level: "blocking", description: "Unsupported critical fact remains." });
+    risks.push({ level: "blocking", description: "Et kritisk faktum mangler kildegrunnlag." });
   }
   if (facts.some((fact) => fact.status === "contradicted")) {
-    risks.push({ level: "high", description: "Contradictory fact requires handling." });
+    risks.push({ level: "high", description: "Motstridende faktum må håndteres." });
   }
   if (latestDraft?.changedAfterReview) {
-    risks.push({ level: "blocking", description: "Draft changed after review; approval is invalid." });
+    risks.push({ level: "blocking", description: "Utkastet er endret etter review; godkjenningen er ugyldig." });
   }
 
   const canExport = Boolean(
@@ -78,7 +78,7 @@ function computeLegalStatusBundle(state, matterId) {
 
   const nextSafeAction =
     missingItems[0] ??
-    (latestExport ? "Export package is ready for handoff." : canExport ? "Export package." : "Review residual risk.");
+    (latestExport ? "Eksportpakken er klar for overlevering." : canExport ? "Eksporter pakken." : "Review gjenværende risiko.");
 
   return {
     id: `LSB-${matterId}`,
@@ -86,9 +86,9 @@ function computeLegalStatusBundle(state, matterId) {
     version: state.statusBundleVersions.get(matterId) ?? 1,
     status: canExport ? "approved" : risks.some((risk) => risk.level === "blocking") ? "blocked" : "partial",
     whatWeKnow: [
-      `${documents.length} document(s) imported.`,
-      `${facts.filter((fact) => fact.status === "reviewed").length} reviewed fact(s).`,
-      latestDraft ? `Draft ${latestDraft.id} exists.` : "No draft exists yet."
+      `${documents.length} dokument(er) importert.`,
+      `${facts.filter((fact) => fact.status === "reviewed").length} faktum/fakta reviewet.`,
+      latestDraft ? `Utkast ${latestDraft.id} finnes.` : "Ingen utkast finnes ennå."
     ],
     sourceRefs: facts.flatMap((fact) => fact.sourceRefs),
     missingItems,
@@ -123,7 +123,7 @@ export function createEvidaRuntime() {
 
   function getMatterByDocument(documentId) {
     const document = state.documents.get(documentId);
-    if (!document) throw new Error(`Document ${documentId} not found.`);
+    if (!document) throw new Error(`Dokument ${documentId} ble ikke funnet.`);
     return document.matterId;
   }
 
@@ -135,10 +135,11 @@ export function createEvidaRuntime() {
         status: "ok",
         service: "evida",
         version: "0.1.0",
+        message: "Evida kjører",
         checks: {
-          domain: "pass",
-          audit: "pass",
-          gates: "pass"
+          domain: "bestått",
+          audit: "bestått",
+          gates: "bestått"
         }
       };
     },
@@ -146,8 +147,8 @@ export function createEvidaRuntime() {
     createMatter(input = {}) {
       const matter = {
         id: id("MAT", state),
-        title: input.title ?? "New legal matter",
-        client: input.client ?? "Client TBD",
+        title: input.title ?? "Ny juridisk sak",
+        client: input.client ?? "Klient ikke avklart",
         status: "active",
         createdAt: now(),
         updatedAt: now()
@@ -176,16 +177,16 @@ export function createEvidaRuntime() {
     },
 
     importDocument(matterId, input = {}) {
-      if (!state.matters.has(matterId)) throw new Error(`Matter ${matterId} not found.`);
+      if (!state.matters.has(matterId)) throw new Error(`Sak ${matterId} ble ikke funnet.`);
       const document = {
         id: id("DOC", state),
         matterId,
-        name: input.name ?? "source-document.txt",
+        name: input.name ?? "kildedokument.txt",
         type: input.type ?? "text/plain",
         status: "uploaded",
         createdAt: now()
       };
-      const content = input.content ?? "Client instructed counsel to prepare a sourced response. Deadline is in 12 days.";
+      const content = input.content ?? "Klienten ba advokaten lage et kildebasert svar. Fristen er om 12 dager.";
       const version = {
         id: id("DVER", state),
         documentId: document.id,
@@ -209,7 +210,7 @@ export function createEvidaRuntime() {
       const fact = {
         id: id("FACT", state),
         matterId,
-        statement: "Client instruction and deadline are present in the source material.",
+        statement: "Klientinstruks og frist finnes i kildematerialet.",
         sourceRefs: [sourceRef],
         confidence: 0.91,
         status: "unreviewed",
@@ -243,7 +244,7 @@ export function createEvidaRuntime() {
 
     reviewFact(factId, input = {}) {
       const fact = state.facts.get(factId);
-      if (!fact) throw new Error(`Fact ${factId} not found.`);
+      if (!fact) throw new Error(`Faktum ${factId} ble ikke funnet.`);
       fact.status = input.decision === "reject" ? "rejected" : input.decision === "dispute" ? "contradicted" : "reviewed";
       if (input.statement) fact.statement = input.statement;
       fact.reviewedBy = input.reviewer ?? "legal-reviewer";
@@ -258,18 +259,18 @@ export function createEvidaRuntime() {
     createDraft(matterId, input = {}) {
       const reviewedFacts = [...state.facts.values()].filter((fact) => fact.matterId === matterId && fact.status === "reviewed");
       if (reviewedFacts.length === 0) {
-        throw new Error("A sourced draft requires at least one reviewed fact.");
+        throw new Error("Et kildebasert utkast krever minst ett reviewet faktum.");
       }
       const draft = {
         id: id("DRF", state),
         matterId,
-        title: input.title ?? "Sourced legal draft",
+        title: input.title ?? "Kildebasert juridisk utkast",
         version: 1,
         status: "draft",
         changedAfterReview: false,
         content:
           input.content ??
-          `Draft based on reviewed source material: ${reviewedFacts.map((fact) => fact.statement).join(" ")}`,
+          `Utkast basert på reviewet kildemateriale: ${reviewedFacts.map((fact) => fact.statement).join(" ")}`,
         paragraphSourceRefs: reviewedFacts.flatMap((fact) => fact.sourceRefs),
         unsupportedClaims: input.unsupportedClaims ?? [],
         createdAt: now(),
@@ -282,7 +283,7 @@ export function createEvidaRuntime() {
 
     updateDraft(draftId, input = {}) {
       const draft = state.drafts.get(draftId);
-      if (!draft) throw new Error(`Draft ${draftId} not found.`);
+      if (!draft) throw new Error(`Utkast ${draftId} ble ikke funnet.`);
       const hadApproval = [...state.reviewDecisions.values()].some(
         (item) => item.draftId === draftId && ["approved", "approved_with_notes"].includes(item.decision)
       );
@@ -301,15 +302,15 @@ export function createEvidaRuntime() {
 
     verifyDraft(draftId) {
       const draft = state.drafts.get(draftId);
-      if (!draft) throw new Error(`Draft ${draftId} not found.`);
+      if (!draft) throw new Error(`Utkast ${draftId} ble ikke funnet.`);
       const facts = [...state.facts.values()].filter((fact) => fact.matterId === draft.matterId);
       const failures = [];
       const warnings = [];
-      if (draft.paragraphSourceRefs.length === 0) failures.push("Draft has no paragraph source references.");
-      if (draft.unsupportedClaims.length > 0) failures.push("Draft contains unsupported claims.");
-      if (facts.some((fact) => fact.status === "contradicted")) failures.push("Contradicted facts remain unresolved.");
-      if (draft.changedAfterReview) failures.push("Draft changed after review and requires new approval.");
-      if (facts.some((fact) => fact.status === "unreviewed")) warnings.push("Some facts remain unreviewed.");
+      if (draft.paragraphSourceRefs.length === 0) failures.push("Utkastet mangler kildehenvisninger på avsnittsnivå.");
+      if (draft.unsupportedClaims.length > 0) failures.push("Utkastet inneholder påstander uten kildegrunnlag.");
+      if (facts.some((fact) => fact.status === "contradicted")) failures.push("Motstridende fakta er ikke løst.");
+      if (draft.changedAfterReview) failures.push("Utkastet er endret etter review og krever ny godkjenning.");
+      if (facts.some((fact) => fact.status === "unreviewed")) warnings.push("Noen fakta mangler review.");
       const result = {
         id: id("VER", state),
         matterId: draft.matterId,
@@ -327,7 +328,7 @@ export function createEvidaRuntime() {
         warnings,
         failures,
         residualRisk: warnings.length > 0 ? "medium" : "low",
-        recommendedNextAction: failures.length === 0 ? "Send to review." : "Resolve blockers before review/export.",
+        recommendedNextAction: failures.length === 0 ? "Send til review." : "Løs blokkeringer før review/eksport.",
         createdAt: now()
       };
       state.verificationResults.set(result.id, result);
@@ -337,10 +338,10 @@ export function createEvidaRuntime() {
 
     reviewDraft(draftId, input = {}) {
       const draft = state.drafts.get(draftId);
-      if (!draft) throw new Error(`Draft ${draftId} not found.`);
+      if (!draft) throw new Error(`Utkast ${draftId} ble ikke funnet.`);
       const verification = [...state.verificationResults.values()].filter((item) => item.draftId === draftId).at(-1);
       if (!verification || verification.status !== "verified") {
-        throw new Error("Draft must be verified before approval.");
+        throw new Error("Utkastet må verifiseres før godkjenning.");
       }
       const decision = {
         id: id("REV", state),
@@ -350,7 +351,7 @@ export function createEvidaRuntime() {
         verificationResultId: verification.id,
         decision: input.decision ?? "approved",
         reviewer: input.reviewer ?? "legal-reviewer",
-        comment: input.comment ?? "Approved for export.",
+        comment: input.comment ?? "Godkjent for eksport.",
         createdAt: now()
       };
       state.reviewDecisions.set(decision.id, decision);
@@ -360,7 +361,7 @@ export function createEvidaRuntime() {
 
     exportDraft(draftId, input = {}) {
       const draft = state.drafts.get(draftId);
-      if (!draft) throw new Error(`Draft ${draftId} not found.`);
+      if (!draft) throw new Error(`Utkast ${draftId} ble ikke funnet.`);
       const verification = [...state.verificationResults.values()].filter((item) => item.draftId === draftId).at(-1);
       const review = [...state.reviewDecisions.values()].filter((item) => item.draftId === draftId).at(-1);
       const blockers = [];
@@ -368,7 +369,7 @@ export function createEvidaRuntime() {
       if (!review || !["approved", "approved_with_notes"].includes(review.decision)) blockers.push("review_not_approved");
       if (draft.changedAfterReview) blockers.push("draft_changed_after_review");
       if (blockers.length > 0) {
-        const error = new Error("Export is blocked by verification/review gates.");
+        const error = new Error("Eksport er blokkert av verifiserings- eller review-gater.");
         error.blockers = blockers;
         throw error;
       }
@@ -394,14 +395,14 @@ export function createEvidaRuntime() {
     },
 
     runDemoWorkflow() {
-      const { matter } = this.createMatter({ title: "Evida demo matter", client: "Demo Client" });
+      const { matter } = this.createMatter({ title: "Evida demosak", client: "Demoklient" });
       const { document } = this.importDocument(matter.id, {
-        name: "client-instruction.txt",
-        content: "Client instructed counsel to respond. The response deadline is in 12 days. The source must be cited."
+        name: "klientinstruks.txt",
+        content: "Klienten ba advokaten svare. Svarfristen er om 12 dager. Kilden må siteres."
       });
       const { fact } = this.processDocument(document.id);
       this.reviewFact(fact.id, { decision: "approve", reviewer: "demo-reviewer" });
-      const { draft } = this.createDraft(matter.id, { title: "Verified response draft" });
+      const { draft } = this.createDraft(matter.id, { title: "Verifisert svarutkast" });
       const { verificationResult } = this.verifyDraft(draft.id);
       const { reviewDecision } = this.reviewDraft(draft.id, { decision: "approved", reviewer: "demo-reviewer" });
       const { exportPackage } = this.exportDraft(draft.id);
@@ -409,8 +410,11 @@ export function createEvidaRuntime() {
         matterId: matter.id,
         draftId: draft.id,
         verificationStatus: verificationResult.status,
+        verificationStatusLabel: "verifisert",
         reviewDecision: reviewDecision.decision,
+        reviewDecisionLabel: "godkjent",
         exportStatus: exportPackage.status,
+        exportStatusLabel: "eksportert",
         legalStatusBundle: computeLegalStatusBundle(state, matter.id)
       };
     }

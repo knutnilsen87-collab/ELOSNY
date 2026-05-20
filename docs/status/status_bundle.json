@@ -12,7 +12,7 @@
     "The starter repo contains a Node-based app/API/domain vertical slice.",
     "The implemented workflow covers matter, documents, facts, draft, verification, review and export.",
     "API role checks now block unauthorized commands.",
-    "Draft edits after approval invalidate export readiness.",
+    "Endringer i utkast etter godkjenning ugyldiggjør eksportklar status.",
     "Repository has been reorganized into a root-level monorepo.",
     "All project documentation has been moved under docs/."
   ],
@@ -33,9 +33,9 @@
     "severity": "low"
   },
   "summary": {
-    "short_summary": "Phase 1-12 foundation is being implemented as a tested vertical slice.",
-    "technical_summary": "Node app with REST API, domain services, UI shell, audit events and gate tests.",
-    "user_visible_summary": "Evida can demonstrate a verified matter-to-export workflow locally."
+    "short_summary": "Fase 1-12-grunnmuren er implementert som en testet vertikal flyt.",
+    "technical_summary": "Node-app med REST-API, domenetjenester, UI-shell, audit-hendelser og gate-tester.",
+    "user_visible_summary": "Evida kan demonstrere en verifisert flyt fra sak til eksport lokalt."
   },
   "progress_tracking": {
     "phase": "phase_1_12_foundation",

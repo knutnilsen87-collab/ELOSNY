@@ -29,7 +29,7 @@ function sendJson(response, status, body) {
   response.end(JSON.stringify(body, null, 2));
 }
 
-function sendError(response, status, code, message, blockers = [], recoveryAction = "Inspect request and retry.") {
+function sendError(response, status, code, message, blockers = [], recoveryAction = "Kontroller forespørselen og prøv igjen.") {
   sendJson(response, status, {
     error: {
       code,
@@ -60,7 +60,7 @@ async function handleApi(request, response, url) {
   if (request.method === "GET" && matterMatch) {
     assertCan(role, "matter:view");
     const matter = runtime.getMatter(matterMatch[1]);
-    if (!matter) return sendError(response, 404, "matter_not_found", "Matter was not found.");
+    if (!matter) return sendError(response, 404, "matter_not_found", "Saken ble ikke funnet.");
     return sendJson(response, 200, matter);
   }
 
@@ -112,11 +112,11 @@ async function handleApi(request, response, url) {
     try {
       return sendJson(response, 201, runtime.exportDraft(draftExportMatch[1], await readJson(request)));
     } catch (error) {
-      return sendError(response, 409, "export_blocked", error.message, error.blockers ?? [], "Resolve blockers, rerun verification/review, then export again.");
+      return sendError(response, 409, "export_blocked", error.message, error.blockers ?? [], "Løs blokkeringer, kjør verifisering/review på nytt og eksporter igjen.");
     }
   }
 
-  return sendError(response, 404, "not_found", "API route was not found.");
+  return sendError(response, 404, "not_found", "API-ruten ble ikke funnet.");
 }
 
 async function handleStatic(response, url) {
@@ -137,7 +137,7 @@ const server = createServer(async (request, response) => {
     await handleStatic(response, url);
   } catch (error) {
     if (error.status === 403) {
-      sendError(response, 403, "permission_denied", error.message, [], "Use an authorized Evida role for this command.");
+      sendError(response, 403, "permission_denied", error.message, [], "Bruk en autorisert Evida-rolle for denne kommandoen.");
       return;
     }
     sendError(response, 500, "internal_error", error.message);
@@ -145,5 +145,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, () => {
-  console.log(`Evida running at http://localhost:${port}`);
+  console.log(`Evida kjører på http://localhost:${port}`);
 });

@@ -12,7 +12,7 @@ export function can(role, action) {
 
 export function assertCan(role, action) {
   if (can(role, action)) return;
-  const error = new Error(`Role ${role || "anonymous"} cannot perform ${action}.`);
+  const error = new Error(`Rollen ${role || "anonym"} kan ikke utføre ${action}.`);
   error.code = "permission_denied";
   error.status = 403;
   throw error;

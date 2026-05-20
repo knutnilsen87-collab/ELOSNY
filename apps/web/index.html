@@ -3,72 +3,72 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Evida Matter Workspace</title>
+    <title>Evida saksarbeidsflate</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <aside class="sidebar" aria-label="Primary navigation">
       <div class="brand">Evida</div>
       <nav>
-        <a class="active" href="#matter">Matters</a>
-        <a href="#documents">Documents</a>
-        <a href="#facts">Facts</a>
-        <a href="#draft">Draft</a>
-        <a href="#verification">Verification</a>
+        <a class="active" href="#matter">Saker</a>
+        <a href="#documents">Dokumenter</a>
+        <a href="#facts">Fakta</a>
+        <a href="#draft">Utkast</a>
+        <a href="#verification">Verifisering</a>
         <a href="#review">Review</a>
-        <a href="#export">Export</a>
+        <a href="#export">Eksport</a>
       </nav>
     </aside>
     <main class="workspace">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Matter Command Center</p>
-          <h1>Evida vertical slice</h1>
+          <p class="eyebrow">Sakskontroll</p>
+          <h1>Evida vertikal arbeidsflyt</h1>
         </div>
-        <button id="runDemo" type="button">Run verified workflow</button>
+        <button id="runDemo" type="button">Kjør verifisert flyt</button>
       </header>
 
-      <section class="grid" aria-label="Matter status">
+      <section class="grid" aria-label="Saksstatus">
         <article>
-          <span class="label">Workflow</span>
-          <h2 id="workflowState">Not started</h2>
-          <p id="workflowText">Run the demo to create a matter, process sources, verify, review and export.</p>
+          <span class="label">Arbeidsflyt</span>
+          <h2 id="workflowState">Ikke startet</h2>
+          <p id="workflowText">Kjør demoen for å opprette sak, behandle kilder, verifisere, reviewe og eksportere.</p>
         </article>
         <article>
-          <span class="label">Verification</span>
-          <h2 id="verificationState">Pending</h2>
-          <p>Export remains blocked until verification and human review pass.</p>
+          <span class="label">Verifisering</span>
+          <h2 id="verificationState">Venter</h2>
+          <p>Eksport er blokkert til verifisering og menneskelig review er godkjent.</p>
         </article>
         <article>
-          <span class="label">Export</span>
-          <h2 id="exportState">Blocked</h2>
-          <p>Final package includes draft, sources, verification, review and audit summary.</p>
+          <span class="label">Eksport</span>
+          <h2 id="exportState">Blokkert</h2>
+          <p>Sluttpakken inneholder utkast, kilder, verifisering, review og audit-sammendrag.</p>
         </article>
       </section>
 
-      <section class="flow" aria-label="MVP flow">
-        <h2>End-to-end product flow</h2>
+      <section class="flow" aria-label="MVP-flyt">
+        <h2>Produktflyt fra start til slutt</h2>
         <ol>
-          <li>Create/open matter</li>
-          <li>Import documents</li>
-          <li>Extract source-bound facts</li>
-          <li>Review evidence</li>
-          <li>Create sourced draft</li>
-          <li>Run verification</li>
-          <li>Approve review</li>
-          <li>Export package</li>
+          <li>Opprett eller åpne sak</li>
+          <li>Importer dokumenter</li>
+          <li>Trekk ut kildebundne fakta</li>
+          <li>Review bevis</li>
+          <li>Lag kildebasert utkast</li>
+          <li>Kjør verifisering</li>
+          <li>Godkjenn review</li>
+          <li>Eksporter pakke</li>
         </ol>
       </section>
     </main>
-    <aside class="status-panel" aria-label="Legal Status Bundle">
-      <h2>Legal Status Bundle</h2>
+    <aside class="status-panel" aria-label="Juridisk statuspakke">
+      <h2>Juridisk statuspakke</h2>
       <dl>
         <dt>Status</dt>
-        <dd id="bundleStatus">partial</dd>
-        <dt>Next safe action</dt>
-        <dd id="nextAction">Run verified workflow.</dd>
-        <dt>Can export</dt>
-        <dd id="canExport">false</dd>
+        <dd id="bundleStatus">delvis</dd>
+        <dt>Neste trygge handling</dt>
+        <dd id="nextAction">Kjør verifisert flyt.</dd>
+        <dt>Kan eksportere</dt>
+        <dd id="canExport">nei</dd>
       </dl>
       <pre id="bundleJson">{}</pre>
     </aside>

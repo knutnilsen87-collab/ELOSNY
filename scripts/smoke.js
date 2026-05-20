@@ -8,4 +8,4 @@ if (result.verificationStatus !== "verified" || result.exportStatus !== "exporte
   process.exit(1);
 }
 
-console.log("Smoke passed: verified review/export workflow completed.");
+console.log("Smoke OK: verifisert review-/eksportflyt fullført.");

@@ -8,23 +8,58 @@ const nextAction = document.querySelector("#nextAction");
 const canExport = document.querySelector("#canExport");
 const bundleJson = document.querySelector("#bundleJson");
 
+const labels = {
+  verified: "verifisert",
+  approved: "godkjent",
+  approved_with_notes: "godkjent med merknad",
+  exported: "eksportert",
+  blocked: "blokkert",
+  partial: "delvis",
+  draft: "utkast",
+  true: "ja",
+  false: "nei"
+};
+
+function label(value) {
+  return labels[String(value)] ?? String(value);
+}
+
+function localizeStatusBundle(bundle) {
+  return {
+    id: bundle.id,
+    sakId: bundle.matterId,
+    versjon: bundle.version,
+    status: label(bundle.status),
+    detViVet: bundle.whatWeKnow,
+    kilder: bundle.sourceRefs,
+    mangler: bundle.missingItems,
+    risiko: bundle.risks?.map((risk) => ({
+      nivå: label(risk.level),
+      beskrivelse: risk.description
+    })),
+    nesteTryggeHandling: bundle.nextSafeAction,
+    kanEksportere: label(bundle.canExport),
+    kreverReview: label(bundle.requiresReview)
+  };
+}
+
 function render(result) {
-  workflowState.textContent = `Matter ${result.matterId}`;
-  workflowText.textContent = `Draft ${result.draftId} completed the source-bound workflow.`;
-  verificationState.textContent = result.verificationStatus;
-  exportState.textContent = result.exportStatus;
-  bundleStatus.textContent = result.legalStatusBundle.status;
+  workflowState.textContent = `Sak ${result.matterId}`;
+  workflowText.textContent = `Utkast ${result.draftId} fullførte den kildebundne arbeidsflyten.`;
+  verificationState.textContent = label(result.verificationStatus);
+  exportState.textContent = label(result.exportStatus);
+  bundleStatus.textContent = label(result.legalStatusBundle.status);
   nextAction.textContent = result.legalStatusBundle.nextSafeAction;
-  canExport.textContent = String(result.legalStatusBundle.canExport);
-  bundleJson.textContent = JSON.stringify(result.legalStatusBundle, null, 2);
+  canExport.textContent = label(result.legalStatusBundle.canExport);
+  bundleJson.textContent = JSON.stringify(localizeStatusBundle(result.legalStatusBundle), null, 2);
 }
 
 runButton.addEventListener("click", async () => {
   runButton.disabled = true;
-  runButton.textContent = "Running...";
+  runButton.textContent = "Kjører...";
   const response = await fetch("/api/workflow/demo-run", { method: "POST" });
   const result = await response.json();
   render(result);
-  runButton.textContent = "Run verified workflow";
+  runButton.textContent = "Kjør verifisert flyt";
   runButton.disabled = false;
 });

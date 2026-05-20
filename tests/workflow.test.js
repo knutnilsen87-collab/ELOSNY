@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { createEvidaRuntime } from "../packages/domain/index.js";
 import { assertCan, can } from "../packages/security/index.js";
 
-test("full matter-to-export workflow reaches approved export-ready status", () => {
+test("full sak-til-eksport-flyt når godkjent eksportklar status", () => {
   const runtime = createEvidaRuntime();
   const result = runtime.runDemoWorkflow();
 
@@ -15,57 +15,57 @@ test("full matter-to-export workflow reaches approved export-ready status", () =
   assert.equal(result.legalStatusBundle.missingItems.length, 0);
 });
 
-test("export fails closed before verification and review", () => {
+test("eksport feiler lukket før verifisering og review", () => {
   const runtime = createEvidaRuntime();
-  const { matter } = runtime.createMatter({ title: "Blocked export matter" });
-  const { document } = runtime.importDocument(matter.id, { content: "A sourced instruction exists." });
+  const { matter } = runtime.createMatter({ title: "Sak med blokkert eksport" });
+  const { document } = runtime.importDocument(matter.id, { content: "En kildebasert instruks finnes." });
   const { fact } = runtime.processDocument(document.id);
   runtime.reviewFact(fact.id, { decision: "approve" });
   const { draft } = runtime.createDraft(matter.id);
 
-  assert.throws(() => runtime.exportDraft(draft.id), /Export is blocked/);
+  assert.throws(() => runtime.exportDraft(draft.id), /Eksport er blokkert/);
 });
 
-test("verification blocks unsupported claims", () => {
+test("verifisering blokkerer påstander uten kildegrunnlag", () => {
   const runtime = createEvidaRuntime();
-  const { matter } = runtime.createMatter({ title: "Unsupported claim matter" });
-  const { document } = runtime.importDocument(matter.id, { content: "A sourced instruction exists." });
+  const { matter } = runtime.createMatter({ title: "Sak med påstand uten kilde" });
+  const { document } = runtime.importDocument(matter.id, { content: "En kildebasert instruks finnes." });
   const { fact } = runtime.processDocument(document.id);
   runtime.reviewFact(fact.id, { decision: "approve" });
-  const { draft } = runtime.createDraft(matter.id, { unsupportedClaims: ["Uncited legal conclusion"] });
+  const { draft } = runtime.createDraft(matter.id, { unsupportedClaims: ["Juridisk konklusjon uten sitat"] });
   const { verificationResult } = runtime.verifyDraft(draft.id);
 
   assert.equal(verificationResult.status, "blocked");
-  assert.match(verificationResult.failures.join(" "), /unsupported claims/i);
+  assert.match(verificationResult.failures.join(" "), /uten kildegrunnlag/i);
 });
 
-test("draft creation requires reviewed facts", () => {
+test("utkast krever reviewede fakta", () => {
   const runtime = createEvidaRuntime();
-  const { matter } = runtime.createMatter({ title: "Draft gate matter" });
+  const { matter } = runtime.createMatter({ title: "Sak med utkastgate" });
 
-  assert.throws(() => runtime.createDraft(matter.id), /reviewed fact/);
+  assert.throws(() => runtime.createDraft(matter.id), /reviewet faktum/);
 });
 
-test("editing an approved draft invalidates export approval", () => {
+test("endring av godkjent utkast ugyldiggjør eksportgodkjenning", () => {
   const runtime = createEvidaRuntime();
-  const { matter } = runtime.createMatter({ title: "Approval invalidation matter" });
-  const { document } = runtime.importDocument(matter.id, { content: "A sourced instruction exists." });
+  const { matter } = runtime.createMatter({ title: "Sak med ugyldiggjort godkjenning" });
+  const { document } = runtime.importDocument(matter.id, { content: "En kildebasert instruks finnes." });
   const { fact } = runtime.processDocument(document.id);
   runtime.reviewFact(fact.id, { decision: "approve" });
   const { draft } = runtime.createDraft(matter.id);
   runtime.verifyDraft(draft.id);
   runtime.reviewDraft(draft.id, { decision: "approved" });
-  runtime.updateDraft(draft.id, { content: "Edited after approval." });
+  runtime.updateDraft(draft.id, { content: "Endret etter godkjenning." });
 
-  assert.throws(() => runtime.exportDraft(draft.id), /Export is blocked/);
+  assert.throws(() => runtime.exportDraft(draft.id), /Eksport er blokkert/);
   const { verificationResult } = runtime.verifyDraft(draft.id);
   assert.equal(verificationResult.status, "blocked");
-  assert.match(verificationResult.failures.join(" "), /changed after review/i);
+  assert.match(verificationResult.failures.join(" "), /endret etter review/i);
 });
 
-test("role permissions block unsafe commands", () => {
+test("rolletilganger blokkerer utrygge kommandoer", () => {
   assert.equal(can("viewer", "matter:view"), true);
   assert.equal(can("viewer", "draft:export"), false);
   assert.doesNotThrow(() => assertCan("reviewer", "draft:export"));
-  assert.throws(() => assertCan("lawyer", "draft:export"), /cannot perform/);
+  assert.throws(() => assertCan("lawyer", "draft:export"), /kan ikke utføre/);
 });
