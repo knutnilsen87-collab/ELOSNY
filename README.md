@@ -27,6 +27,12 @@ npm start
 
 Open `http://localhost:4173`.
 
+Or start everything with:
+
+```powershell
+.\start-evida.ps1
+```
+
 ## Implemented vertical slice
 
 ```text
