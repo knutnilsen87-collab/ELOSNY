@@ -14,7 +14,9 @@
     "API role checks now block unauthorized commands.",
     "Endringer i utkast etter godkjenning ugyldiggjør eksportklar status.",
     "Repository has been reorganized into a root-level monorepo.",
-    "All project documentation has been moved under docs/."
+    "All project documentation has been moved under docs/.",
+    "Fase 13-20 er implementert som testbare prod-grade kontrollflater.",
+    "Security, privacy, observability, admin/config, integrations, quality, beta-readiness og production-readiness er dekket av moduler og tester."
   ],
   "assumptions": [
     "The first production-grade foundation can use an in-memory runtime while persistence contracts are stabilized.",
@@ -87,15 +89,24 @@
       "API authorization smoke check passed: health=200 denied=403 allowed=201"
       ,
       "Monorepo root npm test passed",
-      "Monorepo root npm run smoke passed"
+      "Monorepo root npm run smoke passed",
+      "Prod-grade API-verifikasjon passerte: health=200, readiness=klar_for_kontrollert_beta, integrations=delvis, observability=frisk",
+      "Browser-verifikasjon passerte med norsk readiness-kort"
     ],
     "artifact_refs": [
       "package.json",
       "packages/domain/index.js",
       "packages/security/index.js",
+      "packages/config/index.js",
+      "packages/compliance/index.js",
+      "packages/observability/index.js",
+      "packages/integrations/index.js",
+      "packages/readiness/index.js",
       "tests/workflow.test.js",
+      "tests/prodgrade.test.js",
       "docs/status/evida-browser-verification.png",
-      "docs/README.md"
+      "docs/README.md",
+      "docs/05_Delivery/Production_Grade_Roadmap_Status.md"
     ],
     "changed_surfaces": [
       "documentation",
@@ -180,7 +191,9 @@
     "temporary_mess_introduced": false,
     "cleanup_performed": [],
     "follow_up_required": [
-      "replace in-memory store with production persistence"
+      "replace in-memory store with production persistence",
+      "replace local auth header with OIDC/authenticated claims",
+      "connect real OCR, AI, storage and export providers"
     ]
   },
   "repro_layer": {

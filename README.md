@@ -49,6 +49,7 @@ Implementert:
 - Godkjenning blir ugyldig hvis utkastet endres etter review.
 - Audit-hendelser for viktige handlinger i arbeidsflyten.
 - Beregning av juridisk statuspakke.
+- Admin-konfigurasjon, observability, integrasjonsprober, privacy-export og readiness-gater.
 - Automatiserte tester for suksessflyt og blokkerte tilstander.
 
 ## Dokumentasjon

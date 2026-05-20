@@ -3,6 +3,8 @@ const workflowState = document.querySelector("#workflowState");
 const workflowText = document.querySelector("#workflowText");
 const verificationState = document.querySelector("#verificationState");
 const exportState = document.querySelector("#exportState");
+const readinessState = document.querySelector("#readinessState");
+const readinessText = document.querySelector("#readinessText");
 const bundleStatus = document.querySelector("#bundleStatus");
 const nextAction = document.querySelector("#nextAction");
 const canExport = document.querySelector("#canExport");
@@ -15,6 +17,9 @@ const labels = {
   exported: "eksportert",
   blocked: "blokkert",
   partial: "delvis",
+  klar_for_kontrollert_beta: "klar for kontrollert beta",
+  ikke_klar: "ikke klar",
+  produksjonsklar: "produksjonsklar",
   draft: "utkast",
   true: "ja",
   false: "nei"
@@ -54,12 +59,21 @@ function render(result) {
   bundleJson.textContent = JSON.stringify(localizeStatusBundle(result.legalStatusBundle), null, 2);
 }
 
+function renderReadiness(readiness) {
+  readinessState.textContent = label(readiness.status);
+  readinessText.textContent = readiness.nextAction;
+}
+
 runButton.addEventListener("click", async () => {
   runButton.disabled = true;
   runButton.textContent = "Kjører...";
   const response = await fetch("/api/workflow/demo-run", { method: "POST" });
   const result = await response.json();
   render(result);
+  const readinessResponse = await fetch("/api/operations/readiness", {
+    headers: { "x-evida-role": "reviewer" }
+  });
+  renderReadiness(await readinessResponse.json());
   runButton.textContent = "Kjør verifisert flyt";
   runButton.disabled = false;
 });

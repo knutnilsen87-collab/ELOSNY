@@ -13,6 +13,7 @@ All project documentation lives in this folder.
 - `02_Product/PRD_Product_Requirements_Document.md`
 - `02_Product/Functional_Specification.md`
 - `05_Delivery/Roadmap_and_Milestones.md`
+- `05_Delivery/Production_Grade_Roadmap_Status.md`
 
 ## Design
 

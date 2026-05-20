@@ -1,7 +1,22 @@
 const rolePermissions = {
-  admin: ["matter:create", "matter:view", "document:import", "document:process", "fact:review", "draft:create", "draft:edit", "draft:verify", "draft:review", "draft:export"],
+  admin: [
+    "matter:create",
+    "matter:view",
+    "document:import",
+    "document:process",
+    "fact:review",
+    "draft:create",
+    "draft:edit",
+    "draft:verify",
+    "draft:review",
+    "draft:export",
+    "admin:manage",
+    "privacy:export",
+    "privacy:delete_plan",
+    "operations:view"
+  ],
   lawyer: ["matter:create", "matter:view", "document:import", "document:process", "draft:create", "draft:edit", "draft:verify"],
-  reviewer: ["matter:view", "fact:review", "draft:verify", "draft:review", "draft:export"],
+  reviewer: ["matter:view", "fact:review", "draft:verify", "draft:review", "draft:export", "operations:view"],
   viewer: ["matter:view"],
   worker: ["document:process"]
 };
