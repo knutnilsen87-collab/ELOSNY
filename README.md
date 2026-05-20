@@ -33,6 +33,12 @@ Eller start alt med:
 .\start-evida.ps1
 ```
 
+På Windows kan du også bruke:
+
+```bat
+start-evida.bat
+```
+
 ## Implementert vertikal flyt
 
 ```text
